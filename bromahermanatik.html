@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sorpresa para Hermanita</title>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+		<link rel="icon" href="https://w7.pngwing.com/pngs/601/824/png-transparent-star-system-film-star.png" type="image/png" />
+		<style>
+			        * {
+			            margin: 0;
+			            padding: 0;
+			            box-sizing: border-box;
+			        }
+
+			        body {
+			            display: flex;
+			            flex-direction: column;
+			            align-items: center;
+			            justify-content: center;
+			            min-height: 100vh;
+			            background: linear-gradient(45deg, #ff99cc, #99ccff);
+			            background-size: 200% 200%;
+			            animation: fondoAnimado 15s ease infinite;
+			            font-family: 'Poppins', Arial, sans-serif;
+			            position: relative;
+			            padding: 20px;
+			            overflow-x: hidden;
+			        }
+
+			        @keyframes fondoAnimado {
+			            0% { background-position: 0% 50%; }
+			            50% { background-position: 100% 50%; }
+			            100% { background-position: 0% 50%; }
+			        }
+
+			        .gif-container {
+			            max-width: min(80vw, 300px);
+			            margin-bottom: 1.5rem;
+			            display: none;
+			            border-radius: 12px;
+			            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			        }
+
+			        #textoPregunta {
+			            font-size: 1.8rem;
+			            font-weight: 600;
+			            color: #333;
+			            margin-bottom: 1.5rem;
+			            text-align: center;
+			            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			        }
+
+			        .boton {
+			            padding: 0.8rem 2rem;
+			            font-size: 1.2rem;
+			            font-weight: 600;
+			            background-color: #ff69b4;
+			            color: white;
+			            border: none;
+			            border-radius: 12px;
+			            cursor: pointer;
+			            margin: 0.5rem;
+			            transition: all 0.3s ease;
+			            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+			        }
+
+
+			        .boton:hover {
+			            transform: scale(1.05);
+			            background-color: #ff85c0;
+			            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+			        }
+
+			        /* Botón especial de TikTok */
+			        .boton-tiktok {
+			            background: linear-gradient(45deg, #000000, #00f2ea, #ff0050);
+			            color: white;
+			            font-weight: bold;
+			            padding: 1rem 2.5rem;
+			            font-size: 1.3rem;
+			            border: none;
+			            border-radius: 15px;
+			            cursor: pointer;
+			            margin: 1rem;
+			            transition: all 0.3s ease;
+			            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+			            display: flex;
+			            align-items: center;
+			            gap: 10px;
+			        }
+
+			        .boton-tiktok:hover {
+			            transform: scale(1.1);
+			            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+			        }
+
+			        #cargaContainer {
+			            display: none;
+			            flex-direction: column;
+			            align-items: center;
+			        }
+
+			        #barraCarga {
+			            width: min(80vw, 300px);
+			            height: 1.2rem;
+			            background-color: #e0e0e0;
+			            border-radius: 10px;
+			            overflow: hidden;
+			            margin-top: 0.5rem;
+			            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+			        }
+
+			        #progresoCarga {
+			            width: 0;
+			            height: 100%;
+			            background-color: #ff69b4;
+			            border-radius: 10px;
+			            transition: width 0.3s ease;
+			        }
+
+			        #textoCarga {
+			            font-size: 1.4rem;
+			            font-weight: 600;
+			            color: #333;
+			            margin-top: 0.5rem;
+			            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			        }
+
+			        #mensajeFinal {
+			            display: none;
+			            font-size: 1.8rem;
+			            font-weight: 600;
+			            color: #333;
+			            text-align: center;
+			            margin-top: 1.5rem;
+			            max-width: 800px;
+			            padding: 0 20px;
+			        }
+
+			        .corazon {
+			            position: fixed;
+			            font-size: 1.5rem;
+			            animation: lluvia 8s linear forwards;
+			            z-index: -1;
+			            user-select: none;
+			            pointer-events: none;
+			            top: -50px;
+			        }
+
+			        @keyframes lluvia {
+			            0% {
+			                transform: translateY(0) rotate(0deg);
+			                opacity: 1;
+			            }
+			            100% {
+			                transform: translateY(100vh) rotate(360deg);
+			                opacity: 0;
+			            }
+			        }
+
+			        .texto-gelatina {
+			            animation: gelatina 0.5s ease;
+			        }
+
+			        @keyframes gelatina {
+			            0%, 100% { transform: scale(1); }
+			            25% { transform: scale(1.1, 0.9); }
+			            50% { transform: scale(0.9, 1.1); }
+			            75% { transform: scale(1.05, 0.95); }
+			        }
+
+			        .oculto {
+			            display: none;
+			        }
+
+			        /* Contenedor del botón TikTok */
+			        #tiktokContainer {
+			            display: none;
+			            flex-direction: column;
+			            align-items: center;
+			            margin-top: 2rem;
+			            text-align: center;
+			        }
+
+			        #textoTiktok {
+			            font-size: 1.5rem;
+			            font-weight: 600;
+			            color: #333;
+			            margin-bottom: 1rem;
+			            text-align: center;
+			        }
+
+			        /* Media Queries para responsividad */
+			        @media (max-width: 600px) {
+			            #textoPregunta, #mensajeFinal {
+			                font-size: 1.4rem;
+			            }
+			            #textoCarga, #textoTiktok {
+			                font-size: 1.2rem;
+			            }
+			            .boton {
+			                padding: 0.6rem 1.5rem;
+			                font-size: 1rem;
+			            }
+			            .boton-tiktok {
+			                padding: 0.8rem 2rem;
+			                font-size: 1.1rem;
+			            }
+			            .corazon {
+			                font-size: 1.2rem;
+			            }
+			        }
+			        /* TEXTO FIJO EN BOTÓN PRINCIPAL */
+			#botonPrincipal .boton-texto {
+			  display: inline-block;
+			  transform-origin: center center;
+			  font-size: 1.2rem;
+			  transition: transform 0.3s ease;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- GIFs existentes -->
+		<img id="gifInicial" class="gif-container" src="https://media.tenor.com/YIRrOK53KKgAAAAM/shibuya-station-haru.gif" alt="GIF inicial" />
+		<img id="gifTriste" class="gif-container" src="https://i.giphy.com/hq8nghrTMVMQwcCmpu.webp" alt="GIF triste" />
+		<img id="gifEtapa1" class="gif-container" src="https://i.pinimg.com/originals/a0/50/34/a050342aa80f73199b7ff03eae27a316.gif" alt="GIF etapa 1" />
+		<img id="gifEtapa2" class="gif-container" src="https://media.tenor.com/O0sqGZX77NQAAAAM/hahahaha-laughing.gif" alt="GIF etapa 2" />
+		<img id="gifEtapa3" class="gif-container" src="https://i.pinimg.com/originals/9c/ef/52/9cef52ce27ab97e0fa9cfac1cdc1007f.gif" alt="GIF etapa 3" />
+		<img id="gifEtapa4" class="gif-container" src="https://c.tenor.com/hOA-3J5QyFQAAAAC/tenor.gif" alt="GIF etapa 4" />
+		<img id="gifEtapa5" class="gif-container" src="https://i.gifer.com/GWag.gif" alt="GIF etapa 5" />
+		<img id="gifEtapa6" class="gif-container" src="https://gifdb.com/images/high/anime-boy-mafuyu-sato-uoucoq3gpd5q24l5.gif" alt="GIF etapa 6" />
+		<img id="gifEtapa7" class="gif-container" src="https://media.tenor.com/rVVJhiJ7DjoAAAAM/kazuma-konosuba.gif" alt="GIF etapa 7" />
+		<img id="gifEtapa8" class="gif-container" src="https://gifdb.com/images/high/happy-anime-boy-with-sparkling-eyes-c3osg0qv6lyzrl65.gif" alt="GIF etapa 8" />
+		<img id="gifEtapa9" class="gif-container" src="https://media.tenor.com/QXHAvtiEd4YAAAAM/cheng-xiaoshi-link-click.gif" alt="GIF etapa 9" />
+		<img id="gifEtapa10" class="gif-container" src="https://media.tenor.com/Po4tz_d6_o0AAAAM/happy-happy-anime.gif" alt="GIF etapa 10" />
+		<img id="gifCarga" class="gif-container" src="https://i.pinimg.com/originals/b9/9e/68/b99e68bc2216552709e0e82d938f1348.gif" alt="GIF carga" />
+
+		<!-- NUEVO GIF para pausa de "¡Ahí voy hermanita!" -->
+		<img id="gifPausaCarga" class="gif-container" src="https://media.tenor.com/3fYDDvzMb90AAAAM/luffy-luffy-eat.gif" alt="GIF pausa carga" />
+
+		<img id="gifCargaTranquila" class="gif-container" src="https://i.gifer.com/Ecj9.gif" alt="GIF carga tranquila" />
+		<img id="gifCargaToca" class="gif-container" src="https://i.pinimg.com/originals/a4/69/bb/a469bb0c490bb7abc25e19a259c50a66.gif" alt="GIF carga toca" />
+		<img id="gifCargaClics" class="gif-container" src="https://i.pinimg.com/originals/84/e3/64/84e36470c3e534a5e71c208cd872d177.gif" alt="GIF carga clics" />
+		<img id="gifFinal" class="gif-container" src="https://gifdb.com/images/high/danmachi-cute-anime-boy-bell-cranel-smile-3n2mixvnpkduc5kj.gif" alt="GIF final" />
+
+		<!-- NUEVO GIF para "vamos a demorar 5 años" -->
+		<img id="gifDemora" class="gif-container" src="https://i.gifer.com/Ecj9.gif" alt="GIF demora" />
+
+		<!-- NUEVO GIF para "Preparado... Listo!!!" -->
+		<img
+			id="gifPreparado"
+			class="gif-container"
+			src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTV0YmkwZDZrMXJ6OWVlemlnNTBmcGtzNXFxN2IwcmlhYTM3ZHByYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/si4P9VBMEIhq40i6tT/giphy.gif"
+			alt="GIF preparado"
+		/>
+
+		<div id="textoPregunta">¿Lista para una sorpresa, hermanita?</div>
+		<button id="botonSi" class="boton">Sí</button>
+		<button id="botonNo" class="boton">No</button>
+		<button id="botonMentira" class="boton oculto">Era broma</button>
+		<button id="botonPrincipal" class="boton oculto">
+			<span class="boton-texto"></span>
+		</button>
+
+		<div id="cargaContainer" class="oculto">
+			<div id="textoCarga">¡Ahí voy hermanita!</div>
+			<div id="barraCarga">
+				<div id="progresoCarga"></div>
+			</div>
+			<button id="botonQue" class="boton oculto">¿Qué??</button>
+			<button id="botonCual" class="boton oculto">¿Cuál?</button>
+			<button id="botonOkey" class="boton oculto">Okey?</button>
+		</div>
+
+		<div id="mensajeFinal" class="oculto">¡MELIIIIIIIIIII! 😤💨 ¡VEN PARA VER ONE PIECEEEE! 🏴‍☠️📺 ¡APÚRATEEEE! 🏃‍♀️💨 ¡ESTOY ABURRIDO! 😩😒</div>
+
+		<!-- BOTÓN TIKTOK -->
+		<div id="tiktokContainer" class="oculto">
+			<div id="textoTiktok">¡Mira este TikTok especial para ti, hermanita! 🎵💕</div>
+			<button id="botonTiktok" class="boton-tiktok">
+				📱 Ver TikTok Especial
+			</button>
+		</div>
+
+		<script>
+			        // Cache de elementos para mejor rendimiento
+			        const elementos = {
+			            gifInicial: document.getElementById('gifInicial'),
+			            gifTriste: document.getElementById('gifTriste'),
+			            gifEtapas: [
+			                document.getElementById('gifEtapa1'),
+			                document.getElementById('gifEtapa2'),
+			                document.getElementById('gifEtapa3'),
+			                document.getElementById('gifEtapa4'),
+			                document.getElementById('gifEtapa5'),
+			                document.getElementById('gifEtapa6'),
+			                document.getElementById('gifEtapa7'),
+			                document.getElementById('gifEtapa8'),
+			                document.getElementById('gifEtapa9'),
+			                document.getElementById('gifEtapa10')
+			            ],
+			            gifCarga: document.getElementById('gifCarga'),
+			            gifPausaCarga: document.getElementById('gifPausaCarga'),
+			            gifCargaTranquila: document.getElementById('gifCargaTranquila'),
+			            gifCargaToca: document.getElementById('gifCargaToca'),
+			            gifCargaClics: document.getElementById('gifCargaClics'),
+			            gifFinal: document.getElementById('gifFinal'),
+			            gifDemora: document.getElementById('gifDemora'),
+			            gifPreparado: document.getElementById('gifPreparado'),
+			            textoPregunta: document.getElementById('textoPregunta'),
+			            botonSi: document.getElementById('botonSi'),
+			            botonNo: document.getElementById('botonNo'),
+			            botonMentira: document.getElementById('botonMentira'),
+			            botonPrincipal: document.getElementById('botonPrincipal'),
+			            cargaContainer: document.getElementById('cargaContainer'),
+			            textoCarga: document.getElementById('textoCarga'),
+			            progresoCarga: document.getElementById('progresoCarga'),
+			            botonQue: document.getElementById('botonQue'),
+			            botonCual: document.getElementById('botonCual'),
+			            botonOkey: document.getElementById('botonOkey'),
+			            mensajeFinal: document.getElementById('mensajeFinal'),
+			            tiktokContainer: document.getElementById('tiktokContainer'),
+			            botonTiktok: document.getElementById('botonTiktok'),
+			            textoTiktok: document.getElementById('textoTiktok')
+			        };
+
+			        // Variables de estado
+			        let etapa = 0;
+			        let porcentajeCarga = 1;
+			        let enCarga = false;
+			        let enBroma = false;
+			        let intervaloCarga = null;
+
+			        // Datos de las etapas - ACTUALIZADO para "hermanita" y "hermano"
+			        const etapas = [
+			            "¿Lista para brillar, hermanita??",
+			            "¡De verdad, estás lista?",
+			            "¡Segura al 100%??",
+			            "¿Preparada para arrasar?",
+			            "¡Sí, vas con todo!",
+			            "¿Completamente convencida?",
+			            "¡Vamos, sin dudarlo??",
+			            "¿Lista para el gran momento?",
+			            "¡Última oportunidad, eh!",
+			            "¡Sí, a darlo todo ya!"
+			        ];
+
+			        const botonTextos = [
+			            "¡Claro, hermano!",
+			            "¡Confirma ya!",
+			            "¡Tú puedes, vamos!",
+			            "¡Adelante!",
+			            "¡A por todo!",
+			            "¡Sin miedo, hermano!",
+			            "¡Dale con fuerza!",
+			            "¡No pares ahora!",
+			            "¡Último paso!",
+			            "¡A triunfar!"
+			        ];
+
+			        const escalas = [1.2, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 8];
+
+			        // Función para ocultar todos los GIFs
+			        function ocultarTodosLosGifs() {
+			            const gifs = document.querySelectorAll('.gif-container');
+			            gifs.forEach(gif => {
+			                gif.style.display = 'none';
+			            });
+			        }
+
+			        // Función para animación de texto gelatina
+			        function animarTextoGelatina(elemento) {
+			            elemento.classList.remove('texto-gelatina');
+			            void elemento.offsetWidth; // Trigger reflow
+			            elemento.classList.add('texto-gelatina');
+			        }
+
+			        // Mostrar elementos iniciales
+			        elementos.gifInicial.style.display = 'block';
+			        elementos.textoPregunta.style.display = 'block';
+			        elementos.botonSi.style.display = 'block';
+			        elementos.botonNo.style.display = 'block';
+
+			        // Event listeners
+			        elementos.botonNo.addEventListener('click', () => {
+			            ocultarTodosLosGifs();
+			            elementos.textoPregunta.style.display = 'none';
+			            elementos.botonSi.style.display = 'none';
+			            elementos.botonNo.style.display = 'none';
+			            elementos.gifTriste.style.display = 'block';
+			            elementos.botonMentira.style.display = 'block';
+			            animarTextoGelatina(elementos.gifTriste);
+			        });
+
+			        elementos.botonMentira.addEventListener('click', () => {
+			            ocultarTodosLosGifs();
+			            elementos.botonMentira.style.display = 'none';
+			            elementos.gifInicial.style.display = 'block';
+			            elementos.textoPregunta.style.display = 'block';
+			            elementos.botonSi.style.display = 'block';
+			            elementos.botonNo.style.display = 'block';
+			            animarTextoGelatina(elementos.textoPregunta);
+			        });
+
+			        elementos.botonSi.addEventListener('click', () => {
+			            ocultarTodosLosGifs();
+			            elementos.textoPregunta.style.display = 'none';
+			            elementos.botonSi.style.display = 'none';
+			            elementos.botonNo.style.display = 'none';
+			            elementos.gifEtapas[0].style.display = 'block';
+			           elementos.botonPrincipal.querySelector('.boton-texto').textContent = botonTextos[0];
+			            elementos.botonPrincipal.style.display = 'block';
+			            elementos.textoPregunta.textContent = etapas[0];
+			            elementos.textoPregunta.style.display = 'block';
+			            animarTextoGelatina(elementos.textoPregunta);
+			        });
+
+			        elementos.botonPrincipal.addEventListener('click', () => {
+			            if (etapa < etapas.length - 1) {
+			                elementos.gifEtapas[etapa].style.display = 'none';
+			                etapa++;
+			                elementos.gifEtapas[etapa].style.display = 'block';
+			                elementos.textoPregunta.textContent = etapas[etapa];
+			               const textoBoton = elementos.botonPrincipal.querySelector('.boton-texto');
+			textoBoton.textContent = botonTextos[etapa];
+			elementos.botonPrincipal.style.transform = `scale(${escalas[etapa]})`;
+			textoBoton.style.transform = `scale(${1 / escalas[etapa]})`;
+			                elementos.botonPrincipal.style.fontSize = `${1 + etapa * 0.3}rem`;
+			                animarTextoGelatina(elementos.textoPregunta);
+			            } else {
+			                elementos.gifEtapas[etapa].style.display = 'none';
+			                elementos.botonPrincipal.style.display = 'none';
+			                elementos.textoPregunta.style.display = 'none';
+			                elementos.gifCarga.style.display = 'block';
+			                elementos.cargaContainer.style.display = 'flex';
+			                enCarga = true;
+
+			                // Iniciar carga automática hasta 47%
+			                intervaloCarga = setInterval(() => {
+			                    if (porcentajeCarga < 47) {
+			                        porcentajeCarga++;
+			                        elementos.progresoCarga.style.width = porcentajeCarga + '%';
+			                        elementos.textoCarga.textContent = `¡Ahí voy hermanita!`;
+			                    } else {
+			                        clearInterval(intervaloCarga);
+			                        elementos.gifCarga.style.display = 'none';
+
+			                        // MOSTRAR NUEVO GIF de pausa por 15 segundos
+			                        elementos.gifPausaCarga.style.display = 'block';
+			                        elementos.textoCarga.textContent = 'Cargando...';
+			                        animarTextoGelatina(elementos.textoCarga);
+
+			                        // Pausa de 15 segundos
+			                        setTimeout(() => {
+			                            elementos.gifPausaCarga.style.display = 'none';
+
+			                            // MOSTRAR NUEVO GIF "vamos a demorar 5 años"
+			                            elementos.gifDemora.style.display = 'block';
+			                            elementos.textoCarga.textContent = 'Vamos a demorar 5 años XD';
+			                            animarTextoGelatina(elementos.textoCarga);
+
+			                            setTimeout(() => {
+			                                elementos.botonQue.style.display = 'block';
+			                                enCarga = false;
+			                            }, 2000); // Breve pausa antes de mostrar el botón
+			                        }, 15000); // Pausa de 15 segundos
+			                    }
+			                }, 80); // Aumenta 1% cada 80ms (47% en ~3.76 segundos)
+			            }
+			        });
+
+			        document.addEventListener('click', (e) => {
+			            if (enBroma && e.target !== elementos.botonQue &&
+			                e.target !== elementos.botonCual && e.target !== elementos.botonOkey) {
+			                porcentajeCarga = Math.min(porcentajeCarga + 5, 100);
+			                elementos.progresoCarga.style.width = porcentajeCarga + '%';
+			                elementos.textoCarga.textContent = `¡Clic clic clic!`;
+
+			                if (porcentajeCarga === 100) {
+			                    elementos.gifCargaClics.style.display = 'none';
+			                    elementos.cargaContainer.style.display = 'none';
+			                    elementos.gifFinal.style.display = 'block';
+			                    elementos.mensajeFinal.style.display = 'block';
+			                    animarTextoGelatina(elementos.mensajeFinal);
+			                    generarLluviaCorazones();
+
+			                    // Mostrar el botón de TikTok después de 3 segundos
+			                    setTimeout(() => {
+			                        elementos.tiktokContainer.style.display = 'flex';
+			                        animarTextoGelatina(elementos.textoTiktok);
+			                    }, 3000);
+			                }
+			            }
+			        });
+
+			        // Event listener para el botón de TikTok
+			        elementos.botonTiktok.addEventListener('click', () => {
+			            // CAMBIA ESTE ENLACE POR TU TIKTOK REAL
+			            window.open('https://www.tiktok.com/@adrieleduardogutierrez/video/7384628781094341893?is_from_webapp=1&sender_device=pc&web_id=7561294230384608788', '_blank');
+			        });
+
+			        elementos.botonQue.addEventListener('click', () => {
+			            elementos.gifDemora.style.display = 'none';
+			            elementos.botonQue.style.display = 'none';
+			            elementos.gifCargaTranquila.style.display = 'block';
+			            elementos.textoCarga.textContent = 'Tranquila, tengo otra opción';
+			            elementos.botonCual.style.display = 'block';
+			            animarTextoGelatina(elementos.textoCarga);
+			        });
+
+			        elementos.botonCual.addEventListener('click', () => {
+			            elementos.gifCargaTranquila.style.display = 'none';
+			            elementos.botonCual.style.display = 'none';
+			            elementos.gifCargaToca.style.display = 'block';
+			            elementos.textoCarga.textContent = 'Por favor, toca cualquier parte de la pantalla para llegar al 100%';
+			            elementos.botonOkey.style.display = 'block';
+			            animarTextoGelatina(elementos.textoCarga);
+			        });
+
+			        elementos.botonOkey.addEventListener('click', () => {
+			            elementos.botonOkey.style.display = 'none';
+			            elementos.gifCargaToca.style.display = 'none';
+
+			            // MOSTRAR NUEVO GIF "Preparado... Listo!!!"
+			            elementos.gifPreparado.style.display = 'block';
+
+			            let countdown = 3;
+			            elementos.textoCarga.textContent = `3...`;
+			            animarTextoGelatina(elementos.textoCarga);
+
+			            const intervalo = setInterval(() => {
+			                countdown--;
+			                if (countdown > 0) {
+			                    elementos.textoCarga.textContent = `${countdown}...`;
+			                    animarTextoGelatina(elementos.textoCarga);
+			                } else {
+			                    elementos.textoCarga.textContent = `Ya!!!!! ¡Clic clic clic!`;
+			                    elementos.gifPreparado.style.display = 'none';
+			                    elementos.gifCargaClics.style.display = 'block';
+			                    animarTextoGelatina(elementos.textoCarga);
+			                    clearInterval(intervalo);
+			                    enBroma = true;
+			                }
+			            }, 1000);
+			        });
+
+			        function generarLluviaCorazones() {
+			            // Limitar la cantidad de corazones para mejor rendimiento
+			            const maxCorazones = 20;
+			            let corazonesGenerados = 0;
+
+			            const intervalo = setInterval(() => {
+			                if (corazonesGenerados >= maxCorazones) {
+			                    clearInterval(intervalo);
+			                    return;
+			                }
+
+			                for (let i = 0; i < 2; i++) {
+			                    const corazon = document.createElement('div');
+			                    corazon.className = 'corazon';
+			                    corazon.textContent = '❤️';
+
+			                    // Posición aleatoria evitando el centro
+			                    let posX;
+			                    do {
+			                        posX = Math.random() * 100;
+			                    } while (posX > 40 && posX < 60);
+
+			                    corazon.style.left = posX + 'vw';
+			                    corazon.style.animationDelay = Math.random() * 2 + 's';
+			                    document.body.appendChild(corazon);
+
+			                    // Remover después de la animación
+			                    setTimeout(() => {
+			                        if (corazon.parentNode) {
+			                            corazon.parentNode.removeChild(corazon);
+			                        }
+			                    }, 8000);
+
+			                    corazonesGenerados++;
+			                }
+			            }, 300);
+			        }
+		</script>
+	</body>
+</html>
